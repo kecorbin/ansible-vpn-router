@@ -1,24 +1,10 @@
 ---
 
-# - name: Configure ISAKMP Policies
-#   # TODO
-
 - name: Configure IPSec Policies
   tags: vpn
   with_items: "{{ ipsec_tunnels }}"
   loop_control:
-    label: "{{ item.partner_name }}"
+    label: "{{ item.tunnel_name }}"
   ios_config:
     provider: "{{ cli }}"
     src: "ipsec.j2"
-
-  # TODO
-
-# - name: Configure Crypto Proxy ACL's
-#   # TODO
-#
-# - name: Configure Crypto Map
-#   # TODO
-#
-# - name: Apply Crypto Map to Interface
-#   # TODO
