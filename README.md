@@ -12,6 +12,8 @@ LICENSE: 3-clause BSD license.
 
 ## Role Variables
 
+```
+
 ipsec_tunnels:
 
   - partner_name: router-id
@@ -23,6 +25,9 @@ ipsec_tunnels:
     isakmp_auth: pre-share
     isakmp_key: cisco
 
+```
+
+## CONTRIBUTING
 
 `git clone git@github.com:kecorbin/ansible-vpn-router`
 

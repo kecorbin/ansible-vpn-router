@@ -8,11 +8,7 @@ galaxy_info:
   description: Ansible Role to terminate IPSec tunnel on Cisco IOS router
   license: 3-clause BSD license.
   min_ansible_version: 2.4
-  platforms:
-    - name: Ubuntu
-      versions:
-        14.04
-  categories:
+  galaxy_tags:
     - networking
-    
+
 dependencies:
