@@ -1,0 +1,2 @@
+crypto ipsec transform-set {{ item.tunnel_name }}_transform {{ item.transform_encryption }} {{ item.transform_auth }}
+ mode {{ item.tunnel | default('tunnel') }}

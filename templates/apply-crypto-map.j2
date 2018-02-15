@@ -1,0 +1,7 @@
+
+
+
+crypto map {{ crypto_map | default('ANSIBLE_CRYPTO_MAP') }} local-address {{ crypto_map_source_interface }}
+
+interface {{ crypto_map_interface }}
+  crypto map {{ crypto_map }}

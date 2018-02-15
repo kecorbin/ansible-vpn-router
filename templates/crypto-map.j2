@@ -1,0 +1,5 @@
+crypto map {{ crypto_map | default('ANSIBLE_CRYPTO_MAP') }} {{ item.seq }} ipsec-isakmp
+ description {{ item.tunnel_name }}
+ set peer {{ item.peer_ip }}
+ set transform-set {{ item.tunnel_name }}_transform
+ match address {{ item.tunnel_name }}_crypto_acl

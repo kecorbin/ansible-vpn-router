@@ -1,10 +1,58 @@
 ---
-
-- name: Configure IPSec Policies
-  tags: vpn
+- name: Configure ISAKMP Policies
+  tags: vpn, isakmp
   with_items: "{{ ipsec_tunnels }}"
   loop_control:
     label: "{{ item.tunnel_name }}"
   ios_config:
     provider: "{{ cli }}"
-    src: "ipsec.j2"
+    src: "isakmp-policy.j2"
+
+- name: Configure ISAKMP keys
+  tags: vpn, isakmp
+  with_items: "{{ ipsec_tunnels }}"
+  loop_control:
+    label: "{{ item.tunnel_name }}"
+  ios_config:
+    provider: "{{ cli }}"
+    lines:
+      - crypto isakmp key {{ item.isakmp_key }} address {{ item.peer_ip }}
+
+- name: Configure IPSec Transform Set
+  tags: vpn, ipsec
+  with_items: "{{ ipsec_tunnels }}"
+  loop_control:
+    label: "{{ item.tunnel_name }}"
+  ios_config:
+    provider: "{{ cli }}"
+    src: "transform-set.j2"
+
+- name: Configure IPSec ACL's
+  tags: vpn, ipsec, acl
+  with_items: "{{ ipsec_tunnels }}"
+  loop_control:
+    label: "{{ item.tunnel_name }}"
+  ios_config:
+    provider: "{{ cli }}"
+    lines: "{{ item.acl_lines }}"
+    parents: ip access-list extended {{ item.tunnel_name}}_crypto_acl
+    before: no ip access-list extended {{ item.tunnel_name}}_crypto_acl
+    match: exact
+
+- name: Configure IPSec Crypto Map
+  tags: vpn, ipsec
+  with_items: "{{ ipsec_tunnels }}"
+  loop_control:
+    label: "{{ item.tunnel_name }}"
+  ios_config:
+    provider: "{{ cli }}"
+    src: "crypto-map.j2"
+
+- name: Apply Crypto Map to Interfaces
+  tags: vpn, ipsec
+  with_items: "{{ ipsec_tunnels }}"
+  loop_control:
+    label: "{{ item.tunnel_name }}"
+  ios_config:
+    provider: "{{ cli }}"
+    src: "apply-crypto-map.j2"
