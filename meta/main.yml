@@ -11,7 +11,7 @@ galaxy_info:
   platforms:
     - name: "Cisco IOS"
       versions:
-        - "16.0+"
+        - all
   galaxy_tags:
     - networking
 
