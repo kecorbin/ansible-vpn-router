@@ -1,0 +1,16 @@
+crypto isakmp policy {{ item.seq }}
+ encr {{ item.isakmp_encr }}
+ authentication {{ item.isakmp_auth }}
+ group {{ item.isakmp_group | default(2) }}
+
+crypto isakmp key {{ item.isakmp_key }} address {{ item.peer_ip }}
+
+crypto ipsec transform-set {{ item.partner_name }}_transform {{ item.transform_encryption }} {{ item.transform_auth }}
+ mode {{ item.tunnel | default('tunnel') }}
+
+
+crypto map {{ item.crypto_map | default('ANSIBLE_CRYPTO_MAP') }} {{ item.seq }} ipsec-isakmp
+ description {{ item.partner_name }}
+ set peer {{ item.peer_ip }}
+ set transform-set {{ item.partner_name }}_transform
+ match address {{ item.partner_name }}_crypto_acl

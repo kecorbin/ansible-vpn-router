@@ -1,0 +1,18 @@
+---
+
+allow_duplicates: no
+
+
+galaxy_info:
+  author: Kevin Corbin
+  description: Ansible Role to terminate IPSec tunnel on Cisco IOS router
+  license: 3-clause BSD license.
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        14.04
+  categories:
+    - networking
+    
+dependencies:

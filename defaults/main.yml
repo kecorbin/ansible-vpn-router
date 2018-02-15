@@ -1,0 +1,5 @@
+isakmp_encryption: 3des
+
+isakmp_group: 2
+
+isakmp_auth: pre-share
